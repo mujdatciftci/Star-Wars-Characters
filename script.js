@@ -150,6 +150,11 @@ function showCharacters() {
     
     createElement(pic,name,homeworld);
   }
+
+}
+
+function hideCharacters(){
+  document.getElementById("row").innerHTML = "";
 }
 
 
