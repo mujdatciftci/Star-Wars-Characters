@@ -120,9 +120,9 @@ function createElement(pic, name, homeworld) {
   const column = document.createElement("div");
   column.className = "col-sm-6 col-md-3";
   const card = document.createElement("div");
-  card.className = "card mx-auto";
+  card.className = "card mx-auto animation";
   const image = document.createElement("img");
-  image.className = "card-img-top";
+  image.className = "card-img-top img-fluid";
   image.src = pic;
   const cardBody = document.createElement("div");
   cardBody.className = "card-body";
@@ -144,12 +144,13 @@ function createElement(pic, name, homeworld) {
 
 function showCharacters() {
   for (let i = 0; i < starWars.characters.length; i++) {
-    createElement(
-      starWars.characters[i].pic,
-      starWars.characters[i].name,
-      starWars.characters[i].homeworld
-    );
+    const pic = starWars.characters[i].pic;
+    const name = starWars.characters[i].name;
+    const homeworld = starWars.characters[i].homeworld;
+    
+    createElement(pic,name,homeworld);
   }
 }
+
 
 
