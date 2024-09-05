@@ -103,12 +103,6 @@ const starWars = {
       homeworld: "bestine",
     },
     {
-      "id": 18,
-      "name": "Wedge Antilles",
-      "pic": "https://vignette.wikia.nocookie.net/starwars/images/6/60/WedgeHelmetless-ROTJHD.jpg",
-      "homeworld": "corellia"
-    },
-    {
       id: 20,
       name: "Yoda",
       pic: "https://vignette.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png",
@@ -138,7 +132,7 @@ function createElement(pic, name, homeworld) {
   spanName.textContent = "HomeWorld:";
   const spanText = document.createElement("span");
   spanText.textContent = " " + homeworld;
-
+  
   cardBody.appendChild(cardText);
   cardBody.appendChild(spanName);
   cardBody.appendChild(spanText);
@@ -152,7 +146,7 @@ function showCharacters(){
   document.getElementById("row").innerHTML = "";
 
   starWars.characters.forEach(character => {
-    let{ pic, name, homeworld } = character;
+    let { pic, name, homeworld } = character;
     createElement(pic, name, homeworld);
   })
 }
@@ -163,8 +157,7 @@ function hideCharacters(){
 
 let homeworldsRaw =[];
 
-starWars.characters.forEach(character => 
-  
+starWars.characters.forEach(character =>  
 homeworldsRaw.push(character.homeworld ?? "other"));
 
 
@@ -172,8 +165,9 @@ let homeworldsUnique = [...new Set(homeworldsRaw)];
 let homeworldsLowercase = [];
 
 homeworldsUnique.forEach(homeworld => {
-  homeworldsLowercase.push(homeworld.toLowerCase());
+homeworldsLowercase.push(homeworld.toLowerCase());
 });
+const homeworlds = homeworldsLowercase;
 
+console.log(homeworlds)
 
-console.log(homeworldsLowercase)
