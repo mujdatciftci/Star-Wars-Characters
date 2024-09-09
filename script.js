@@ -132,42 +132,82 @@ function createElement(pic, name, homeworld) {
   spanName.textContent = "HomeWorld:";
   const spanText = document.createElement("span");
   spanText.textContent = " " + homeworld;
-  
+
   cardBody.appendChild(cardText);
   cardBody.appendChild(spanName);
   cardBody.appendChild(spanText);
   card.appendChild(image);
   card.appendChild(cardBody);
   column.appendChild(card);
-  document.getElementById("row").appendChild(column);
+  document.getElementById("rowCards").appendChild(column);
 }
 
-function showCharacters(){
-  document.getElementById("row").innerHTML = "";
+function showCharacters(characters = starWars.characters) {
+  document.getElementById("rowCards").innerHTML = "";
 
-  starWars.characters.forEach(character => {
+  characters.forEach((character) => {
     let { pic, name, homeworld } = character;
     createElement(pic, name, homeworld);
-  })
+  });
 }
 
-function hideCharacters(){
-  document.getElementById("row").innerHTML = "";
+function hideCharacters() {
+  document.getElementById("rowCards").innerHTML = "";
 }
 
-let homeworldsRaw =[];
-
-starWars.characters.forEach(character =>  
-homeworldsRaw.push(character.homeworld ?? "other"));
-
+let homeworldsRaw = [];
+starWars.characters.forEach((character) =>
+  homeworldsRaw.push(character.homeworld ?? "other")
+);
 
 let homeworldsUnique = [...new Set(homeworldsRaw)];
 let homeworldsLowercase = [];
 
-homeworldsUnique.forEach(homeworld => {
-homeworldsLowercase.push(homeworld.toLowerCase());
+homeworldsUnique.forEach((homeworld) => {
+  homeworldsLowercase.push(homeworld.toLowerCase());
 });
 const homeworlds = homeworldsLowercase;
 
-console.log(homeworlds)
+function createRadioInput() {
+  if (document.querySelector(".radio-container") == null) {
+    const radioContainer = document.createElement("div");
+    radioContainer.className = "radio-container";
+    document
+      .getElementById("hide")
+      .insertAdjacentElement("afterend", radioContainer);
 
+    homeworlds.forEach((homeworld) => {
+      const input = document.createElement("input");
+      input.id = homeworld + "-" + homeworld.id;
+      input.className = "radio-input";
+      input.type = "radio";
+      input.name = "homeworld";
+      input.value = homeworld;
+
+      const label = document.createElement("label");
+      label.className = "radio";
+      label.htmlFor = input.id;
+      label.innerText = capital(homeworld);
+
+      radioContainer.appendChild(input);
+      radioContainer.appendChild(label);
+
+      input.addEventListener("change", function () {
+        if (input.checked) {
+          filterCharacters(input.value);
+        }
+      });
+    });
+  }
+}
+
+function filterCharacters(inputValue) {
+  const filteredCharacters = starWars.characters.filter(
+    (character) => character.homeworld === inputValue.toLowerCase()
+  );
+  showCharacters(filteredCharacters);
+}
+
+function capital(p) {
+  return p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+}
